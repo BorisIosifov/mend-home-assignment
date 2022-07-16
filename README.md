@@ -55,10 +55,11 @@ And tests will still pass.
 
 ### What I don't quite like in the application
 Here are the things which I would like to do or change, but I didn't do them to not overthink (as you wrote).
+- I use self-signed certificate as I already said. I didn't have time to find out how to use for example let's Encrypt for the localhost.
 - I didn't make a mechanism which waiting when mysql is ready when docker-compose is upping. I only made a sleeping for 30 seconds before starting the application. If I would have more time, I would write a short sh script which waiting when the 3306 port is up.
 - I did just one database connection and use mutex to get rid of using it from several goroutines in the same time. If I would have more time I would make for example several goroutines to calling sql queries and each goroutine would have it own connection.
 - I didn't provide references between objects.
-- I didn't take out some parameters (like a paths to certificates and database access parameters) to a config file.
+- I didn't take out some parameters (like a paths to certificates and database credentials) to a config file.
 - I didn't integrate the API with some nosql storage. I just did possibility to store data in the local memory. It helped me to write tests independent on external services. But I thinks it is not the same as a nosql storage.
 - I don't well like how I did the getFieldsList function. I did it to avoid listing of fields of each object type in the mysql integration. But the realisation is not so good.
 - I couldn't avoid a listing of object types in the GetList and Get methods in mysql. I would can avoid it in the Get method if I would add a pointer to object in the attributes list of the method (like it done in the json.Unmarshal). But I don't know how to avoid it in the GetList method, because []object.Car don't correspond to []object.Object.
