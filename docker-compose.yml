@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+  mend-home-assignment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mend-home-assignment
+    ports:
+      - 443:443
+    command: bash -c "sleep 30 && ./mend-home-assignment"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mariadb:10.1
+    tmpfs:
+      - /var/lib/mysql:rw
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=YES
+    volumes:
+      - ./data/mariadb:/docker-entrypoint-initdb.d
